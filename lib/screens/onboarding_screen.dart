@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'transition_screen.dart';
+
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
 
@@ -12,6 +14,20 @@ class OnboardingScreen extends StatefulWidget {
 class _OnboardingScreenState extends State<OnboardingScreen> {
   final PageController _pageController = PageController();
   int _currentPage = 0;
+
+  void _goToTransition() {
+    Navigator.pushReplacement(
+      context,
+      PageRouteBuilder(
+        transitionDuration: const Duration(milliseconds: 500),
+        pageBuilder: (context, animation, secondaryAnimation) =>
+            const TransitionScreen(),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          return FadeTransition(opacity: animation, child: child);
+        },
+      ),
+    );
+  }
 
   @override
   void dispose() {
@@ -55,7 +71,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   ),
 
                   TextButton(
-                    onPressed: () {},
+                    onPressed: _goToTransition,
                     child: const Text(
                       'Skip',
                       style: TextStyle(
@@ -131,6 +147,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                           duration: const Duration(milliseconds: 350),
                           curve: Curves.easeInOut,
                         );
+                      } else {
+                        _goToTransition();
                       }
                     },
                     style: ElevatedButton.styleFrom(
