@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
 import 'screens/splash_screen.dart';
+import 'package:provider/provider.dart';
+import 'providers/cart_provider.dart';
 
 void main() {
-  runApp(const K3MiniDelightApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => CartProvider(),
+      child: const K3MiniDelightApp(),
+    ),
+  );
 }
-
 class K3MiniDelightApp extends StatelessWidget {
   const K3MiniDelightApp({super.key});
 

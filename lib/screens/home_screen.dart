@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
-
+import 'cart_screen.dart';
 import 'menu_screen.dart';
+import 'package:provider/provider.dart';
+import '../data/product_data.dart';
+import '../providers/cart_provider.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -12,6 +15,26 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  void _addProductToCart(
+    BuildContext context,
+    String productId,
+    String productName,
+  ) {
+    final product = products.firstWhere(
+      (product) => product.id == productId,
+    );
+    context.read<CartProvider>().addToCart(product);
+
+    ScaffoldMessenger.of(context)
+      ..hideCurrentSnackBar()
+      ..showSnackBar(
+        SnackBar(
+          content: Text('$productName added to cart'),
+          duration: const Duration(seconds: 1),
+        ),
+      );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,38 +80,28 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
 
                     // Header action buttons.
-                    Row(
-                      children: [
-                        Container(
-                          width: 42,
-                          height: 42,
-                          decoration: const BoxDecoration(
-                            color: Colors.white,
-                            shape: BoxShape.circle,
-                          ),
-                          child: const Icon(
-                            Icons.notifications_none_rounded,
-                            size: 22,
-                            color: Color(0xFF633621),
-                          ),
+                    Container(
+                      width: 42,
+                      height: 42,
+                      decoration: const BoxDecoration(
+                        color: Colors.white,
+                        shape: BoxShape.circle,
+                      ),
+                      child: IconButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const CartScreen(),
+                            ),
+                          );
+                        },
+                        icon: const Icon(
+                          Icons.shopping_bag_outlined,
+                          size: 22,
+                          color: Color(0xFF633621),
                         ),
-
-                        const SizedBox(width: 8),
-
-                        Container(
-                          width: 42,
-                          height: 42,
-                          decoration: const BoxDecoration(
-                            color: Colors.white,
-                            shape: BoxShape.circle,
-                          ),
-                          child: const Icon(
-                            Icons.shopping_bag_outlined,
-                            size: 22,
-                            color: Color(0xFF633621),
-                          ),
-                        ),
-                      ],
+                      ),
                     ),
                   ],
                 ),
@@ -325,7 +338,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
               const SizedBox(height: 28),
 
-
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 24),
                 child: Row(
@@ -374,6 +386,13 @@ class _HomeScreenState extends State<HomeScreen> {
                         name: 'Chocolate Donut',
                         price: 35.00,
                         category: 'Donuts',
+                        onAddToCart: () {
+                          _addProductToCart(
+                            context,
+                            'D001',
+                            'Chocolate Donut',
+                          );
+                        },
                       ),
 
                       const SizedBox(width: 16),
@@ -383,6 +402,13 @@ class _HomeScreenState extends State<HomeScreen> {
                         name: 'Chocolate Waffle',
                         price: 85.00,
                         category: 'Waffles',
+                        onAddToCart: () {
+                          _addProductToCart(
+                            context,
+                            'W001',
+                            'Chocolate Waffle',
+                          );
+                        },
                       ),
 
                       const SizedBox(width: 16),
@@ -392,6 +418,13 @@ class _HomeScreenState extends State<HomeScreen> {
                         name: 'Chocolate Pancake',
                         price: 65.00,
                         category: 'Pancakes',
+                        onAddToCart: () {
+                          _addProductToCart(
+                            context,
+                            'P001',
+                            'Chocolate Pancake',
+                          );
+                        },
                       ),
                     ],
                   ),
@@ -436,20 +469,20 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
-
-
 class _ProductCard extends StatelessWidget {
   const _ProductCard({
     required this.imagePath,
     required this.name,
     required this.price,
     required this.category,
+    this.onAddToCart,
   });
 
   final String imagePath;
   final String name;
   final double price;
   final String category;
+  final VoidCallback? onAddToCart;
 
   @override
   Widget build(BuildContext context) {
@@ -540,17 +573,22 @@ class _ProductCard extends StatelessWidget {
                       ),
                     ),
 
-                    Container(
-                      width: 32,
-                      height: 32,
-                      decoration: BoxDecoration(
+                    SizedBox(
+                      width: 40,
+                      height: 40,
+                      child: Material(
                         color: const Color(0xFF633621),
                         borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: const Icon(
-                        Icons.add_rounded,
-                        color: Colors.white,
-                        size: 22,
+                        child: IconButton(
+                          onPressed: onAddToCart,
+                          padding: EdgeInsets.zero,
+                          tooltip: 'Add to cart',
+                          icon: const Icon(
+                            Icons.add_rounded,
+                            color: Colors.white,
+                            size: 22,
+                          ),
+                        ),
                       ),
                     ),
                   ],
