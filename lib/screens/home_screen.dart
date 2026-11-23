@@ -325,68 +325,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
               const SizedBox(height: 28),
 
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 24),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: const [
-                    Text(
-                      'Shop by Category',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w800,
-                        color: Color(0xFF633621),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-
-              const SizedBox(height: 12),
-
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 24),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: _CategoryItem(
-                        icon: Icons.donut_large,
-                        label: 'Donuts',
-                      ),
-                    ),
-
-                    Expanded(
-                      child: _CategoryItem(
-                        icon: Icons.breakfast_dining,
-                        label: 'Waffles',
-                      ),
-                    ),
-
-                    Expanded(
-                      child: _CategoryItem(
-                        icon: Icons.bakery_dining,
-                        label: 'Pancakes',
-                      ),
-                    ),
-
-                    Expanded(
-                      child: _CategoryItem(
-                        icon: Icons.local_drink,
-                        label: 'Sodas',
-                      ),
-                    ),
-
-                    Expanded(
-                      child: _CategoryItem(
-                        icon: Icons.icecream,
-                        label: 'Floats',
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-
-              const SizedBox(height: 28),
 
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 24),
@@ -498,40 +436,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
-class _CategoryItem extends StatelessWidget {
-  const _CategoryItem({required this.icon, required this.label});
 
-  final IconData icon;
-  final String label;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          width: 44,
-          height: 44,
-          decoration: BoxDecoration(
-            color: const Color(0xFFFFE2CF),
-            borderRadius: BorderRadius.circular(20),
-          ),
-          child: Icon(icon, size: 20, color: const Color(0xFF633621)),
-        ),
-
-        const SizedBox(height: 12),
-
-        Text(
-          label,
-          style: const TextStyle(
-            fontSize: 10,
-            fontWeight: FontWeight.w600,
-            color: Color(0xFF633621),
-          ),
-        ),
-      ],
-    );
-  }
-}
 
 class _ProductCard extends StatelessWidget {
   const _ProductCard({
