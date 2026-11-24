@@ -187,70 +187,76 @@ class _OnboardingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 24),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Container(
-            width: double.infinity,
-            height: 300,
-            decoration: BoxDecoration(
-              color: const Color(0xFFFFE2CF),
-              borderRadius: BorderRadius.circular(32),
-              boxShadow: [
-                BoxShadow(
-                  color: const Color(0xFF633621).withValues(alpha: 0.12),
-                  blurRadius: 24,
-                  offset: const Offset(0, 12),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final imageHeight = (constraints.maxHeight * 0.58).clamp(180.0, 300.0);
+
+        return SingleChildScrollView(
+          padding: const EdgeInsets.symmetric(horizontal: 24),
+          child: ConstrainedBox(
+            constraints: BoxConstraints(minHeight: constraints.maxHeight),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  width: double.infinity,
+                  height: imageHeight,
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFFFE2CF),
+                    borderRadius: BorderRadius.circular(32),
+                    boxShadow: [
+                      BoxShadow(
+                        color: const Color(0xFF633621).withValues(alpha: 0.12),
+                        blurRadius: 24,
+                        offset: const Offset(0, 12),
+                      ),
+                    ],
+                  ),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(32),
+                    child: Image.asset(
+                      imagePath,
+                      fit: BoxFit.cover,
+                      alignment: Alignment.center,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 28),
+                Text(
+                  eyebrow.toUpperCase(),
+                  style: const TextStyle(
+                    fontSize: 11,
+                    fontWeight: FontWeight.w700,
+                    letterSpacing: 1.8,
+                    color: Color(0xFFB16A45),
+                  ),
+                ),
+                const SizedBox(height: 10),
+                Text(
+                  title,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    fontSize: 30,
+                    height: 1.12,
+                    fontWeight: FontWeight.w800,
+                    color: Color(0xFF633621),
+                  ),
+                ),
+                const SizedBox(height: 12),
+                Text(
+                  description,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    fontSize: 14,
+                    height: 1.55,
+                    color: Color(0xFF8B6F61),
+                  ),
                 ),
               ],
             ),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(32),
-              child: Image.asset(
-                imagePath,
-                fit: BoxFit.cover,
-                alignment: Alignment.center,
-              ),
-            ),
           ),
-          const SizedBox(height: 28),
-
-          Text(
-            eyebrow.toUpperCase(),
-            style: const TextStyle(
-              fontSize: 11,
-              fontWeight: FontWeight.w700,
-              letterSpacing: 1.8,
-              color: Color(0xFFB16A45),
-            ),
-          ),
-          const SizedBox(height: 10),
-
-          Text(
-            title,
-            textAlign: TextAlign.center,
-            style: const TextStyle(
-              fontSize: 30,
-              height: 1.12,
-              fontWeight: FontWeight.w800,
-              color: Color(0xFF633621),
-            ),
-          ),
-          const SizedBox(height: 12),
-
-          Text(
-            description,
-            textAlign: TextAlign.center,
-            style: const TextStyle(
-              fontSize: 14,
-              height: 1.55,
-              color: Color(0xFF8B6F61),
-            ),
-          ),
-        ],
-      ),
+        );
+      },
     );
   }
 }

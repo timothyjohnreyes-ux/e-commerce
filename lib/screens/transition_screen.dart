@@ -2,7 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
-import 'home_screen.dart';
+
+import 'main_navigation_screen.dart';
 
 class TransitionScreen extends StatefulWidget {
   const TransitionScreen({super.key});
@@ -34,7 +35,7 @@ class _TransitionScreenState extends State<TransitionScreen>
       PageRouteBuilder(
         transitionDuration: const Duration(milliseconds: 400),
         pageBuilder: (context, animation, secondaryAnimation) =>
-            const HomeScreen(),
+            const MainNavigationScreen(),
         transitionsBuilder: (context, animation, secondaryAnimation, child) {
           return FadeTransition(opacity: animation, child: child);
         },

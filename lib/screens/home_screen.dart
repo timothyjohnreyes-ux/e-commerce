@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
-import 'cart_screen.dart';
+
 import 'menu_screen.dart';
+
 import 'package:provider/provider.dart';
+
 import '../data/product_data.dart';
 import '../providers/cart_provider.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  const HomeScreen({super.key, required this.onNavigateToMenu});
+
+  final VoidCallback onNavigateToMenu;
 
   @override
   State<HomeScreen> createState() {
@@ -20,9 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
     String productId,
     String productName,
   ) {
-    final product = products.firstWhere(
-      (product) => product.id == productId,
-    );
+    final product = products.firstWhere((product) => product.id == productId);
     context.read<CartProvider>().addToCart(product);
 
     ScaffoldMessenger.of(context)
@@ -44,69 +46,6 @@ class _HomeScreenState extends State<HomeScreen> {
           padding: const EdgeInsets.only(bottom: 24),
           child: Column(
             children: [
-              // Header: brand name and quick action icons.
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 24,
-                  vertical: 16,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    // Brand section.
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text(
-                          'K3',
-                          style: TextStyle(
-                            fontSize: 26,
-                            fontWeight: FontWeight.w900,
-                            color: Color(0xFF633621),
-                            letterSpacing: 2,
-                          ),
-                        ),
-
-                        const Text(
-                          'MINI DELIGHT',
-                          style: TextStyle(
-                            fontSize: 9,
-                            fontWeight: FontWeight.w700,
-                            color: Color(0xFF8B5E48),
-                            letterSpacing: 2,
-                          ),
-                        ),
-                      ],
-                    ),
-
-                    // Header action buttons.
-                    Container(
-                      width: 42,
-                      height: 42,
-                      decoration: const BoxDecoration(
-                        color: Colors.white,
-                        shape: BoxShape.circle,
-                      ),
-                      child: IconButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const CartScreen(),
-                            ),
-                          );
-                        },
-                        icon: const Icon(
-                          Icons.shopping_bag_outlined,
-                          size: 22,
-                          color: Color(0xFF633621),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-
               // Welcome card: greeting and brand message.
               Padding(
                 padding: const EdgeInsets.fromLTRB(24, 10, 24, 12),
@@ -298,15 +237,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               SizedBox(
                                 height: 34,
                                 child: ElevatedButton(
-                                  onPressed: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) =>
-                                            const MenuScreen(),
-                                      ),
-                                    );
-                                  },
+                                  onPressed: widget.onNavigateToMenu,
                                   style: ElevatedButton.styleFrom(
                                     backgroundColor: const Color(0xFFFFF9F3),
                                     foregroundColor: const Color(0xFF633621),
@@ -353,14 +284,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
 
                     TextButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const MenuScreen(),
-                          ),
-                        );
-                      },
+                      onPressed: widget.onNavigateToMenu,
                       child: const Text(
                         'See All',
                         style: TextStyle(
@@ -387,11 +311,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         price: 35.00,
                         category: 'Donuts',
                         onAddToCart: () {
-                          _addProductToCart(
-                            context,
-                            'D001',
-                            'Chocolate Donut',
-                          );
+                          _addProductToCart(context, 'D001', 'Chocolate Donut');
                         },
                       ),
 
@@ -433,37 +353,6 @@ class _HomeScreenState extends State<HomeScreen> {
             ],
           ),
         ),
-      ),
-
-      // Bottom navigation: main app destinations.
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        backgroundColor: Colors.white,
-        selectedItemColor: const Color(0xFF633621),
-        unselectedItemColor: const Color(0xFFA18B7D),
-        showUnselectedLabels: true,
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home_outlined),
-            activeIcon: Icon(Icons.home_rounded),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.restaurant_menu_outlined),
-            activeIcon: Icon(Icons.restaurant_menu_rounded),
-            label: 'Menu',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.favorite_border_rounded),
-            activeIcon: Icon(Icons.favorite_border_rounded),
-            label: 'Favorites',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person_outline_rounded),
-            activeIcon: Icon(Icons.person_rounded),
-            label: 'Profile',
-          ),
-        ],
       ),
     );
   }
