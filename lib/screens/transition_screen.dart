@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
-
+import '../constants/app_colors.dart';
 import 'main_navigation_screen.dart';
 
 class TransitionScreen extends StatefulWidget {
@@ -53,7 +53,7 @@ class _TransitionScreenState extends State<TransitionScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFFFF9F3),
+      backgroundColor: AppColors.background,
       body: Center(
         child: ScaleTransition(
           scale: CurvedAnimation(
@@ -66,11 +66,11 @@ class _TransitionScreenState extends State<TransitionScreen>
               width: 118,
               height: 118,
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: AppColors.surface,
                 shape: BoxShape.circle,
                 boxShadow: [
                   BoxShadow(
-                    color: const Color(0xFF633621).withValues(alpha: 0.14),
+                    color: AppColors.primary.withValues(alpha: 0.14),
                     blurRadius: 30,
                     offset: const Offset(0, 12),
                   ),
@@ -79,7 +79,7 @@ class _TransitionScreenState extends State<TransitionScreen>
               child: const Icon(
                 Icons.cake_rounded,
                 size: 64,
-                color: Color(0xFF633621),
+                color: AppColors.primary,
               ),
             ),
           ),

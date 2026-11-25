@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../constants/app_colors.dart';
 import '../providers/favorite_provider.dart';
 
 import 'product_details_screen.dart';
@@ -41,7 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFFFF9F3),
+      backgroundColor: AppColors.background,
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.only(bottom: 24),
@@ -57,7 +58,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     vertical: 12,
                   ),
                   decoration: BoxDecoration(
-                    color: const Color(0xFFFFE2CF),
+                    color: AppColors.chipBackground,
                     borderRadius: BorderRadius.circular(18),
                   ),
                   child: Row(
@@ -72,7 +73,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               style: TextStyle(
                                 fontSize: 12,
                                 fontWeight: FontWeight.w700,
-                                color: Color(0xFFB16A45),
+                                color: AppColors.accent,
                               ),
                             ),
                             SizedBox(height: 2),
@@ -81,7 +82,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               style: TextStyle(
                                 fontSize: 20,
                                 fontWeight: FontWeight.w800,
-                                color: Color(0xFF633621),
+                                color: AppColors.primary,
                               ),
                             ),
                             SizedBox(height: 3),
@@ -90,7 +91,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               style: TextStyle(
                                 fontSize: 12,
                                 height: 1.3,
-                                color: Color(0xFF8B6F61),
+                                color: AppColors.secondaryText,
                               ),
                             ),
                           ],
@@ -101,12 +102,12 @@ class _HomeScreenState extends State<HomeScreen> {
                         width: 48,
                         height: 48,
                         decoration: const BoxDecoration(
-                          color: Color(0xFF633621),
+                          color: AppColors.primary,
                           shape: BoxShape.circle,
                         ),
                         child: const Icon(
                           Icons.favorite_rounded,
-                          color: Colors.white,
+                          color: AppColors.surface,
                           size: 24,
                         ),
                       ),
@@ -140,9 +141,9 @@ class _HomeScreenState extends State<HomeScreen> {
                               begin: Alignment.centerLeft,
                               end: Alignment.centerRight,
                               colors: [
-                                Color(0xE6633621),
-                                Color(0xA6633621),
-                                Color(0x00000000),
+                                AppColors.heroOverlayStrong,
+                                AppColors.heroOverlayMedium,
+                                AppColors.transparent,
                               ],
                               stops: [0.0, 0.58, 1.0],
                             ),
@@ -160,7 +161,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   fontSize: 10,
                                   fontWeight: FontWeight.w800,
                                   letterSpacing: 1.5,
-                                  color: Color(0xFFFFE2CF),
+                                  color: AppColors.chipBackground,
                                 ),
                               ),
                               SizedBox(height: 8),
@@ -169,7 +170,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 style: TextStyle(
                                   fontSize: 20,
                                   fontWeight: FontWeight.w900,
-                                  color: Colors.white,
+                                  color: AppColors.surface,
                                 ),
                               ),
                               SizedBox(height: 6),
@@ -177,7 +178,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 'Enjoy your favorite mini delights.',
                                 style: TextStyle(
                                   fontSize: 12,
-                                  color: Color(0xFFFFE2CF),
+                                  color: AppColors.chipBackground,
                                 ),
                               ),
                               const SizedBox(height: 10),
@@ -186,8 +187,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                 child: ElevatedButton(
                                   onPressed: widget.onNavigateToMenu,
                                   style: ElevatedButton.styleFrom(
-                                    backgroundColor: const Color(0xFFFFF9F3),
-                                    foregroundColor: const Color(0xFF633621),
+                                    backgroundColor: AppColors.background,
+                                    foregroundColor: AppColors.primary,
                                     elevation: 0,
                                     padding: const EdgeInsets.symmetric(
                                       horizontal: 14,
@@ -226,7 +227,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.w800,
-                        color: Color(0xFF633621),
+                        color: AppColors.primary,
                       ),
                     ),
 
@@ -235,7 +236,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: const Text(
                         'See All',
                         style: TextStyle(
-                          color: Color(0xFFB16A45),
+                          color: AppColors.accent,
                           fontWeight: FontWeight.w600,
                         ),
                       ),
@@ -339,11 +340,11 @@ class _ProductCard extends StatelessWidget {
       child: Container(
         width: 160,
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: AppColors.surface,
           borderRadius: BorderRadius.circular(20),
           boxShadow: [
             BoxShadow(
-              color: const Color(0xFF633621).withValues(alpha: 0.08),
+              color: AppColors.primary.withValues(alpha: 0.08),
               blurRadius: 12,
               offset: const Offset(0, 4),
             ),
@@ -370,7 +371,7 @@ class _ProductCard extends StatelessWidget {
                         width: 32,
                         height: 32,
                         decoration: const BoxDecoration(
-                          color: Colors.white,
+                          color: AppColors.surface,
                           shape: BoxShape.circle,
                         ),
                         child: Consumer<FavoriteProvider>(
@@ -393,8 +394,8 @@ class _ProductCard extends StatelessWidget {
                                     ? Icons.favorite_rounded
                                     : Icons.favorite_border_rounded,
                                 color: isFavorite
-                                    ? Colors.red
-                                    : const Color(0xFF8B6F61),
+                                    ? AppColors.favorite
+                                    : AppColors.secondaryText,
                                 size: 19,
                               ),
                             );
@@ -418,7 +419,7 @@ class _ProductCard extends StatelessWidget {
                       fontSize: 9,
                       fontWeight: FontWeight.w800,
                       letterSpacing: 1.2,
-                      color: Color(0xFFB16A45),
+                      color: AppColors.accent,
                     ),
                   ),
 
@@ -429,7 +430,7 @@ class _ProductCard extends StatelessWidget {
                     style: const TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w700,
-                      color: Color(0xFF633621),
+                      color: AppColors.primary,
                     ),
                   ),
 
@@ -443,7 +444,7 @@ class _ProductCard extends StatelessWidget {
                         style: const TextStyle(
                           fontSize: 15,
                           fontWeight: FontWeight.w800,
-                          color: Color(0xFF633621),
+                          color: AppColors.primary,
                         ),
                       ),
 
@@ -451,7 +452,7 @@ class _ProductCard extends StatelessWidget {
                         width: 40,
                         height: 40,
                         child: Material(
-                          color: const Color(0xFF633621),
+                          color: AppColors.primary,
                           borderRadius: BorderRadius.circular(10),
                           child: IconButton(
                             onPressed: onAddToCart,
@@ -459,7 +460,7 @@ class _ProductCard extends StatelessWidget {
                             tooltip: 'Add to cart',
                             icon: const Icon(
                               Icons.add_rounded,
-                              color: Colors.white,
+                              color: AppColors.surface,
                               size: 22,
                             ),
                           ),

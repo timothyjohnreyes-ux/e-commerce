@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../constants/app_colors.dart';
 import '../providers/cart_provider.dart';
 import '../providers/favorite_provider.dart';
 
@@ -10,17 +11,17 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFFFF9F3),
+      backgroundColor: AppColors.background,
       appBar: AppBar(
         title: const Text('My Profile'),
-        backgroundColor: const Color(0xFFFFF9F3),
-        foregroundColor: const Color(0xFF633621),
+        backgroundColor: AppColors.background,
+        foregroundColor: AppColors.primary,
         elevation: 0,
         centerTitle: true,
         titleTextStyle: const TextStyle(
           fontSize: 18,
           fontWeight: FontWeight.w800,
-          color: Color(0xFF633621),
+          color: AppColors.primary,
         ),
       ),
       body: SingleChildScrollView(
@@ -31,11 +32,11 @@ class ProfileScreen extends StatelessWidget {
               width: double.infinity,
               padding: const EdgeInsets.all(24),
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: AppColors.surface,
                 borderRadius: BorderRadius.circular(20),
                 boxShadow: [
                   BoxShadow(
-                    color: const Color(0xFF633621).withValues(alpha: 0.08),
+                    color: AppColors.primary.withValues(alpha: 0.08),
                     blurRadius: 12,
                     offset: const Offset(0, 4),
                   ),
@@ -46,12 +47,12 @@ class ProfileScreen extends StatelessWidget {
                   Container(
                     padding: const EdgeInsets.all(4),
                     decoration: const BoxDecoration(
-                      color: Color(0xFFFFE2CF),
+                      color: AppColors.chipBackground,
                       shape: BoxShape.circle,
                     ),
                     child: const CircleAvatar(
                       radius: 48,
-                      backgroundColor: Color(0xFFFFE2CF),
+                      backgroundColor: AppColors.chipBackground,
                       backgroundImage: AssetImage(
                         'assets/images/kotlin_profile.jpg',
                       ),
@@ -63,13 +64,16 @@ class ProfileScreen extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w900,
-                      color: Color(0xFF633621),
+                      color: AppColors.primary,
                     ),
                   ),
                   const SizedBox(height: 4),
                   const Text(
                     'Welcome to K3 Mini Delight!',
-                    style: TextStyle(fontSize: 13, color: Color(0xFF8B6F61)),
+                    style: TextStyle(
+                      fontSize: 13,
+                      color: AppColors.secondaryText,
+                    ),
                   ),
                   const SizedBox(height: 20),
                   Consumer2<CartProvider, FavoriteProvider>(
@@ -101,7 +105,7 @@ class ProfileScreen extends StatelessWidget {
             Container(
               width: double.infinity,
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: AppColors.surface,
                 borderRadius: BorderRadius.circular(20),
               ),
               child: Column(
@@ -142,19 +146,19 @@ class _ProfileStat extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Icon(icon, color: const Color(0xFFB16A45), size: 20),
+        Icon(icon, color: AppColors.accent, size: 20),
         const SizedBox(height: 4),
         Text(
           value,
           style: const TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.w900,
-            color: Color(0xFF633621),
+            color: AppColors.primary,
           ),
         ),
         Text(
           label,
-          style: const TextStyle(fontSize: 11, color: Color(0xFF8B6F61)),
+          style: const TextStyle(fontSize: 11, color: AppColors.secondaryText),
         ),
       ],
     );
@@ -180,22 +184,22 @@ class _ProfileMenuTile extends StatelessWidget {
         width: 42,
         height: 42,
         decoration: BoxDecoration(
-          color: const Color(0xFFFFE2CF),
+          color: AppColors.chipBackground,
           borderRadius: BorderRadius.circular(12),
         ),
-        child: Icon(icon, color: const Color(0xFF633621), size: 21),
+        child: Icon(icon, color: AppColors.primary, size: 21),
       ),
       title: Text(
         title,
         style: const TextStyle(
           fontSize: 14,
           fontWeight: FontWeight.w700,
-          color: Color(0xFF633621),
+          color: AppColors.primary,
         ),
       ),
       subtitle: Text(
         subtitle,
-        style: const TextStyle(fontSize: 12, color: Color(0xFF8B6F61)),
+        style: const TextStyle(fontSize: 12, color: AppColors.secondaryText),
       ),
     );
   }

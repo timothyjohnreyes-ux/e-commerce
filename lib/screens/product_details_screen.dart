@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../constants/app_colors.dart';
 import '../models/product.dart';
 
 import 'package:provider/provider.dart';
@@ -15,17 +16,17 @@ class ProductDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFFFF9F3),
+      backgroundColor: AppColors.background,
       appBar: AppBar(
         title: const Text(
           'Product Details',
           style: TextStyle(
             fontWeight: FontWeight.w800,
-            color: Color(0xFF633621),
+            color: AppColors.primary,
           ),
         ),
-        backgroundColor: const Color(0xFFFFF9F3),
-        foregroundColor: const Color(0xFF633621),
+        backgroundColor: AppColors.background,
+        foregroundColor: AppColors.primary,
         elevation: 0,
       ),
       body: SingleChildScrollView(
@@ -52,7 +53,7 @@ class ProductDetailsScreen extends StatelessWidget {
                   fontSize: 12,
                   fontWeight: FontWeight.w800,
                   letterSpacing: 1.5,
-                  color: Color(0xFFB16A45),
+                  color: AppColors.accent,
                 ),
               ),
 
@@ -67,7 +68,7 @@ class ProductDetailsScreen extends StatelessWidget {
                       style: const TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.w900,
-                        color: Color(0xFF633621),
+                        color: AppColors.primary,
                       ),
                     ),
                   ),
@@ -87,8 +88,8 @@ class ProductDetailsScreen extends StatelessWidget {
                               ? Icons.favorite_rounded
                               : Icons.favorite_border_rounded,
                           color: isFavorite
-                              ? Colors.red
-                              : const Color(0xFF8B6F61),
+                              ? AppColors.favorite
+                              : AppColors.secondaryText,
                           size: 26,
                         ),
                       );
@@ -103,7 +104,7 @@ class ProductDetailsScreen extends StatelessWidget {
                 style: const TextStyle(
                   fontSize: 22,
                   fontWeight: FontWeight.w800,
-                  color: Color(0xFF633621),
+                  color: AppColors.primary,
                 ),
               ),
 
@@ -114,7 +115,7 @@ class ProductDetailsScreen extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 17,
                   fontWeight: FontWeight.w800,
-                  color: Color(0xFF633621),
+                  color: AppColors.primary,
                 ),
               ),
 
@@ -138,18 +139,18 @@ class ProductDetailsScreen extends StatelessWidget {
                   },
                   icon: const Icon(
                     Icons.shopping_bag_outlined,
-                    color: Colors.white,
+                    color: AppColors.surface,
                   ),
                   label: const Text(
                     'Add to Cart',
                     style: TextStyle(
-                      color: Colors.white,
+                      color: AppColors.surface,
                       fontWeight: FontWeight.w800,
                       fontSize: 15,
                     ),
                   ),
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF633621),
+                    backgroundColor: AppColors.primary,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15),
                     ),
@@ -164,7 +165,7 @@ class ProductDetailsScreen extends StatelessWidget {
                 product.description,
                 style: const TextStyle(
                   fontSize: 14,
-                  color: Color(0xFF8B6F61),
+                  color: AppColors.secondaryText,
                   height: 1.5,
                 ),
               ),

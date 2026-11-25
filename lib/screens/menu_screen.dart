@@ -1,5 +1,7 @@
 import '../data/product_data.dart';
 
+import '../constants/app_colors.dart';
+
 import 'package:provider/provider.dart';
 
 import '../providers/cart_provider.dart';
@@ -40,7 +42,7 @@ class _MenuScreenState extends State<MenuScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFFFF9F3),
+      backgroundColor: AppColors.background,
 
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 5),
@@ -53,7 +55,7 @@ class _MenuScreenState extends State<MenuScreen> {
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.w900,
-                color: Color(0xFF633621),
+                color: AppColors.primary,
               ),
             ),
 
@@ -61,7 +63,7 @@ class _MenuScreenState extends State<MenuScreen> {
 
             const Text(
               'Find your favorite sweet treats!',
-              style: TextStyle(fontSize: 13, color: Color(0xFF8B6F61)),
+              style: TextStyle(fontSize: 13, color: AppColors.secondaryText),
             ),
 
             const SizedBox(height: 20),
@@ -72,11 +74,11 @@ class _MenuScreenState extends State<MenuScreen> {
                 height: 48,
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: AppColors.surface,
                   borderRadius: BorderRadius.circular(18),
                   boxShadow: [
                     BoxShadow(
-                      color: const Color(0xFF633621).withValues(alpha: 0.07),
+                      color: AppColors.primary.withValues(alpha: 0.07),
                       blurRadius: 16,
                       offset: const Offset(0, 6),
                     ),
@@ -87,7 +89,7 @@ class _MenuScreenState extends State<MenuScreen> {
                     // Search icon.
                     const Icon(
                       Icons.search_rounded,
-                      color: Color(0xFF8B6F61),
+                      color: AppColors.secondaryText,
                       size: 22,
                     ),
 
@@ -104,7 +106,7 @@ class _MenuScreenState extends State<MenuScreen> {
                         decoration: InputDecoration(
                           hintText: 'Search your favorite treats...',
                           hintStyle: const TextStyle(
-                            color: Color(0xFFA18B7D),
+                            color: AppColors.hintText,
                             fontSize: 14,
                           ),
                           border: InputBorder.none,
@@ -116,7 +118,7 @@ class _MenuScreenState extends State<MenuScreen> {
                     // Filter icon.
                     const Icon(
                       Icons.tune_rounded,
-                      color: Color(0xFFB16A45),
+                      color: AppColors.accent,
                       size: 20,
                     ),
                   ],
@@ -216,12 +218,11 @@ class _MenuScreenState extends State<MenuScreen> {
                     child: Container(
                       width: 160,
                       decoration: BoxDecoration(
-                        color: Colors.white,
+                        color: AppColors.surface,
                         borderRadius: BorderRadius.circular(20),
                         boxShadow: [
                           BoxShadow(
-                            color: const Color(0xFF633621)
-                                .withValues(alpha: 0.08),
+                            color: AppColors.primary.withValues(alpha: 0.08),
                             blurRadius: 12,
                             offset: const Offset(0, 4),
                           ),
@@ -251,7 +252,7 @@ class _MenuScreenState extends State<MenuScreen> {
                                       width: 32,
                                       height: 32,
                                       decoration: const BoxDecoration(
-                                        color: Colors.white,
+                                        color: AppColors.surface,
                                         shape: BoxShape.circle,
                                       ),
                                       child: Consumer<FavoriteProvider>(
@@ -272,8 +273,8 @@ class _MenuScreenState extends State<MenuScreen> {
                                                   : Icons
                                                         .favorite_border_rounded,
                                               color: isFavorite
-                                                  ? Colors.red
-                                                  : const Color(0xFF8B6F61),
+                                                  ? AppColors.favorite
+                                                  : AppColors.secondaryText,
                                               size: 19,
                                             ),
                                           );
@@ -297,7 +298,7 @@ class _MenuScreenState extends State<MenuScreen> {
                                     fontSize: 9,
                                     fontWeight: FontWeight.w800,
                                     letterSpacing: 1.2,
-                                    color: Color(0xFFB16A45),
+                                    color: AppColors.accent,
                                   ),
                                 ),
 
@@ -308,7 +309,7 @@ class _MenuScreenState extends State<MenuScreen> {
                                   style: const TextStyle(
                                     fontSize: 14,
                                     fontWeight: FontWeight.w700,
-                                    color: Color(0xFF633621),
+                                    color: AppColors.primary,
                                   ),
                                 ),
 
@@ -323,7 +324,7 @@ class _MenuScreenState extends State<MenuScreen> {
                                       style: const TextStyle(
                                         fontSize: 15,
                                         fontWeight: FontWeight.w800,
-                                        color: Color(0xFF633621),
+                                        color: AppColors.primary,
                                       ),
                                     ),
 
@@ -331,7 +332,7 @@ class _MenuScreenState extends State<MenuScreen> {
                                       width: 40,
                                       height: 40,
                                       child: Material(
-                                        color: const Color(0xFF633621),
+                                        color: AppColors.primary,
                                         borderRadius: BorderRadius.circular(10),
                                         child: IconButton(
                                           onPressed: () {
@@ -356,7 +357,7 @@ class _MenuScreenState extends State<MenuScreen> {
                                           tooltip: 'Add to cart',
                                           icon: const Icon(
                                             Icons.add_rounded,
-                                            color: Colors.white,
+                                            color: AppColors.surface,
                                             size: 22,
                                           ),
                                         ),
@@ -401,7 +402,7 @@ class _CategoryButton extends StatelessWidget {
         margin: const EdgeInsets.only(right: 8),
         padding: const EdgeInsets.symmetric(horizontal: 18),
         decoration: BoxDecoration(
-          color: isSelected ? const Color(0xFF633621) : const Color(0xFFFFE2CF),
+          color: isSelected ? AppColors.primary : AppColors.chipBackground,
           borderRadius: BorderRadius.circular(20),
         ),
         alignment: Alignment.center,
@@ -410,7 +411,7 @@ class _CategoryButton extends StatelessWidget {
           style: TextStyle(
             fontSize: 12,
             fontWeight: FontWeight.w700,
-            color: isSelected ? Colors.white : Color(0xFF633621),
+            color: isSelected ? AppColors.surface : AppColors.primary,
           ),
         ),
       ),

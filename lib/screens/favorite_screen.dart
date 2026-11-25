@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../constants/app_colors.dart';
 import '../providers/favorite_provider.dart';
 
 import 'product_details_screen.dart';
@@ -11,17 +12,17 @@ class FavoritesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFFFF9F3),
+      backgroundColor: AppColors.background,
       appBar: AppBar(
         title: const Text(
           'My Favorites',
           style: TextStyle(
             fontWeight: FontWeight.w800,
-            color: Color(0xFF633621),
+            color: AppColors.primary,
           ),
         ),
-        backgroundColor: const Color(0xFFFFF9F3),
-        foregroundColor: const Color(0xFF633621),
+        backgroundColor: AppColors.background,
+        foregroundColor: AppColors.primary,
         elevation: 0,
 
         actions: [
@@ -29,7 +30,7 @@ class FavoritesScreen extends StatelessWidget {
             tooltip: 'Remove All Favorites',
             icon: const Icon(
               Icons.delete_sweep_rounded,
-              color: Color(0xFFB16A45),
+              color: AppColors.accent,
             ),
             onPressed: () async {
               final confirm = await showDialog<bool>(
@@ -58,7 +59,6 @@ class FavoritesScreen extends StatelessWidget {
             },
           ),
         ],
-        
       ),
       body: Consumer<FavoriteProvider>(
         builder: (context, favoriteProvider, child) {
@@ -66,7 +66,7 @@ class FavoritesScreen extends StatelessWidget {
             return const Center(
               child: Text(
                 'No favorites yet.',
-                style: TextStyle(fontSize: 14, color: Color(0xFF8B6F61)),
+                style: TextStyle(fontSize: 14, color: AppColors.secondaryText),
               ),
             );
           }
@@ -97,7 +97,7 @@ class FavoritesScreen extends StatelessWidget {
                   },
                   icon: const Icon(
                     Icons.delete_outline_rounded,
-                    color: Color(0xFFB16A45),
+                    color: AppColors.accent,
                   ),
                   tooltip: 'Remove from Favorites',
                 ),

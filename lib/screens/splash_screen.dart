@@ -1,6 +1,8 @@
-
 import 'dart:async';
+
 import 'package:flutter/material.dart';
+
+import '../constants/app_colors.dart';
 import 'onboarding_screen.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -21,9 +23,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(
-          builder: (context) => const OnboardingScreen(),
-        ),
+        MaterialPageRoute(builder: (context) => const OnboardingScreen()),
       );
     });
   }
@@ -31,7 +31,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFFFF9F3),
+      backgroundColor: AppColors.background,
       body: Stack(
         children: [
           // Top decorative shape
@@ -42,7 +42,7 @@ class _SplashScreenState extends State<SplashScreen> {
               width: 250,
               height: 250,
               decoration: const BoxDecoration(
-                color: Color(0xFFFFE2CF),
+                color: AppColors.chipBackground,
                 shape: BoxShape.circle,
               ),
             ),
@@ -56,7 +56,7 @@ class _SplashScreenState extends State<SplashScreen> {
               width: 270,
               height: 270,
               decoration: const BoxDecoration(
-                color: Color(0xFF633621),
+                color: AppColors.primary,
                 shape: BoxShape.circle,
               ),
             ),
@@ -69,10 +69,7 @@ class _SplashScreenState extends State<SplashScreen> {
               duration: const Duration(milliseconds: 900),
               curve: Curves.easeOutBack,
               builder: (context, value, child) {
-                return Transform.scale(
-                  scale: value,
-                  child: child,
-                );
+                return Transform.scale(scale: value, child: child);
               },
               child: Column(
                 mainAxisSize: MainAxisSize.min,
@@ -82,11 +79,11 @@ class _SplashScreenState extends State<SplashScreen> {
                     width: 115,
                     height: 115,
                     decoration: BoxDecoration(
-                      color: Colors.white,
+                      color: AppColors.surface,
                       shape: BoxShape.circle,
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.brown.withValues(alpha: 0.10),
+                          color: AppColors.shadow.withValues(alpha: 0.10),
                           blurRadius: 20,
                           offset: const Offset(0, 8),
                         ),
@@ -95,7 +92,7 @@ class _SplashScreenState extends State<SplashScreen> {
                     child: const Icon(
                       Icons.cake_rounded,
                       size: 65,
-                      color: Color(0xFF633621),
+                      color: AppColors.primary,
                     ),
                   ),
 
@@ -107,7 +104,7 @@ class _SplashScreenState extends State<SplashScreen> {
                     style: TextStyle(
                       fontSize: 34,
                       fontWeight: FontWeight.w900,
-                      color: Color(0xFF633621),
+                      color: AppColors.primary,
                       letterSpacing: 3,
                     ),
                   ),
@@ -117,7 +114,7 @@ class _SplashScreenState extends State<SplashScreen> {
                     style: TextStyle(
                       fontSize: 30,
                       fontWeight: FontWeight.bold,
-                      color: Color(0xFF633621),
+                      color: AppColors.primary,
                     ),
                   ),
 
@@ -128,7 +125,7 @@ class _SplashScreenState extends State<SplashScreen> {
                     'Sweet Bites, Mini Delights!',
                     style: TextStyle(
                       fontSize: 14,
-                      color: Color(0xFF8B5E48),
+                      color: AppColors.brandAccent,
                       letterSpacing: 0.5,
                     ),
                   ),
@@ -141,7 +138,7 @@ class _SplashScreenState extends State<SplashScreen> {
                     height: 28,
                     child: CircularProgressIndicator(
                       strokeWidth: 2.5,
-                      color: Color(0xFF9B6245),
+                      color: AppColors.loadingIndicator,
                     ),
                   ),
                 ],

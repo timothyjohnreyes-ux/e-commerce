@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../constants/app_colors.dart';
 import 'home_screen.dart';
 import 'menu_screen.dart';
 import 'favorite_screen.dart';
@@ -36,7 +37,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFFFF9F3),
+      backgroundColor: AppColors.background,
 
       body: SafeArea(
         child: Column(
@@ -55,7 +56,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
                         style: TextStyle(
                           fontSize: 26,
                           fontWeight: FontWeight.w900,
-                          color: Color(0xFF633621),
+                          color: AppColors.primary,
                           letterSpacing: 2,
                         ),
                       ),
@@ -64,7 +65,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
                         style: TextStyle(
                           fontSize: 9,
                           fontWeight: FontWeight.w700,
-                          color: Color(0xFF8B5E48),
+                          color: AppColors.brandAccent,
                           letterSpacing: 2,
                         ),
                       ),
@@ -75,7 +76,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
                     width: 42,
                     height: 42,
                     decoration: const BoxDecoration(
-                      color: Colors.white,
+                      color: AppColors.surface,
                       shape: BoxShape.circle,
                     ),
                     child: Stack(
@@ -95,7 +96,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
                           icon: const Icon(
                             Icons.shopping_bag_outlined,
                             size: 22,
-                            color: Color(0xFF633621),
+                            color: AppColors.primary,
                           ),
                         ),
 
@@ -111,7 +112,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
                               child: Container(
                                 padding: const EdgeInsets.all(5),
                                 decoration: const BoxDecoration(
-                                  color: Colors.red,
+                                  color: AppColors.favorite,
                                   shape: BoxShape.circle,
                                 ),
                                 constraints: const BoxConstraints(
@@ -122,7 +123,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
                                   '${cart.newCartItems}',
                                   textAlign: TextAlign.center,
                                   style: const TextStyle(
-                                    color: Colors.white,
+                                    color: AppColors.surface,
                                     fontSize: 10,
                                     fontWeight: FontWeight.w800,
                                   ),
@@ -150,9 +151,9 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         currentIndex: _currentIndex,
-        backgroundColor: Colors.white,
-        selectedItemColor: const Color(0xFF633621),
-        unselectedItemColor: const Color(0xFFA18B7D),
+        backgroundColor: AppColors.surface,
+        selectedItemColor: AppColors.primary,
+        unselectedItemColor: AppColors.hintText,
         showUnselectedLabels: true,
 
         onTap: (index) {

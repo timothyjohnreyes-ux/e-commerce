@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'constants/app_colors.dart';
 import 'screens/splash_screen.dart';
 
 import 'package:provider/provider.dart';
@@ -31,8 +32,8 @@ class K3MiniDelightApp extends StatelessWidget {
 
       theme: ThemeData(
         useMaterial3: true,
-        colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF633621)),
-        scaffoldBackgroundColor: const Color(0xFFFFF9F3),
+        colorScheme: ColorScheme.fromSeed(seedColor: AppColors.primary),
+        scaffoldBackgroundColor: AppColors.background,
       ),
 
       home: const SplashScreen(),

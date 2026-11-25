@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../constants/app_colors.dart';
 import 'transition_screen.dart';
 
 class OnboardingScreen extends StatefulWidget {
@@ -38,7 +39,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFFFF9F3),
+      backgroundColor: AppColors.background,
       body: SafeArea(
         child: Column(
           children: [
@@ -55,7 +56,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         style: TextStyle(
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
-                          color: Color(0xFF633621),
+                          color: AppColors.primary,
                         ),
                       ),
 
@@ -64,7 +65,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         style: TextStyle(
                           fontSize: 8,
                           fontWeight: FontWeight.w600,
-                          color: Color(0xFF633621),
+                          color: AppColors.primary,
                         ),
                       ),
                     ],
@@ -77,7 +78,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       style: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w600,
-                        color: Color(0xFF633621),
+                        color: AppColors.primary,
                       ),
                     ),
                   ),
@@ -132,8 +133,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         height: 8,
                         decoration: BoxDecoration(
                           color: isActive
-                              ? const Color(0xFF633621)
-                              : const Color(0xFFDCC6B8),
+                              ? AppColors.primary
+                              : AppColors.inactiveIndicator,
                           borderRadius: BorderRadius.circular(8),
                         ),
                       );
@@ -152,8 +153,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       }
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF633621),
-                      foregroundColor: Colors.white,
+                      backgroundColor: AppColors.primary,
+                      foregroundColor: AppColors.surface,
                       elevation: 0,
                       minimumSize: const Size(140, 56),
                       shape: RoundedRectangleBorder(
@@ -202,11 +203,11 @@ class _OnboardingPage extends StatelessWidget {
                   width: double.infinity,
                   height: imageHeight,
                   decoration: BoxDecoration(
-                    color: const Color(0xFFFFE2CF),
+                    color: AppColors.chipBackground,
                     borderRadius: BorderRadius.circular(32),
                     boxShadow: [
                       BoxShadow(
-                        color: const Color(0xFF633621).withValues(alpha: 0.12),
+                        color: AppColors.primary.withValues(alpha: 0.12),
                         blurRadius: 24,
                         offset: const Offset(0, 12),
                       ),
@@ -228,7 +229,7 @@ class _OnboardingPage extends StatelessWidget {
                     fontSize: 11,
                     fontWeight: FontWeight.w700,
                     letterSpacing: 1.8,
-                    color: Color(0xFFB16A45),
+                    color: AppColors.accent,
                   ),
                 ),
                 const SizedBox(height: 10),
@@ -239,7 +240,7 @@ class _OnboardingPage extends StatelessWidget {
                     fontSize: 30,
                     height: 1.12,
                     fontWeight: FontWeight.w800,
-                    color: Color(0xFF633621),
+                    color: AppColors.primary,
                   ),
                 ),
                 const SizedBox(height: 12),
@@ -249,7 +250,7 @@ class _OnboardingPage extends StatelessWidget {
                   style: const TextStyle(
                     fontSize: 14,
                     height: 1.55,
-                    color: Color(0xFF8B6F61),
+                    color: AppColors.secondaryText,
                   ),
                 ),
               ],
