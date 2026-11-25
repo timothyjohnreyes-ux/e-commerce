@@ -6,6 +6,10 @@ import '../data/product_data.dart';
 class CartProvider extends ChangeNotifier {
   final Map<String, int> _items = {};
 
+  int _newCartItems = 0;
+
+  int get newCartItems => _newCartItems;
+
   Map<String, int> get items => Map.unmodifiable(_items);
 
   int get totalItems {
@@ -22,6 +26,13 @@ class CartProvider extends ChangeNotifier {
   void addToCart(Product product) {
     _items.update(product.id, (quantity) => quantity + 1, ifAbsent: () => 1);
 
+    _newCartItems++; // Increment the new cart items count
+
+    notifyListeners();
+  }
+
+  void markCartAsViewed() {
+    _newCartItems = 0;
     notifyListeners();
   }
 

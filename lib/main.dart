@@ -1,16 +1,25 @@
 import 'package:flutter/material.dart';
+
 import 'screens/splash_screen.dart';
+
 import 'package:provider/provider.dart';
+
 import 'providers/cart_provider.dart';
+
+import 'providers/favorite_provider.dart';
 
 void main() {
   runApp(
-    ChangeNotifierProvider(
-      create: (context) => CartProvider(),
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => CartProvider()),
+        ChangeNotifierProvider(create: (context) => FavoriteProvider()),
+      ],
       child: const K3MiniDelightApp(),
     ),
   );
 }
+
 class K3MiniDelightApp extends StatelessWidget {
   const K3MiniDelightApp({super.key});
 
@@ -22,9 +31,7 @@ class K3MiniDelightApp extends StatelessWidget {
 
       theme: ThemeData(
         useMaterial3: true,
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: const Color(0xFF633621),
-        ),
+        colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF633621)),
         scaffoldBackgroundColor: const Color(0xFFFFF9F3),
       ),
 

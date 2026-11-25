@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-
-import 'menu_screen.dart';
-
 import 'package:provider/provider.dart';
+
+import '../providers/favorite_provider.dart';
+
+import 'product_details_screen.dart';
 
 import '../data/product_data.dart';
 import '../providers/cart_provider.dart';
@@ -114,61 +115,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
 
-              // Search field: allows users to look for treats.
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 24),
-                child: Container(
-                  height: 48,
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(18),
-                    boxShadow: [
-                      BoxShadow(
-                        color: const Color(0xFF633621).withValues(alpha: 0.07),
-                        blurRadius: 16,
-                        offset: const Offset(0, 6),
-                      ),
-                    ],
-                  ),
-                  child: Row(
-                    children: [
-                      // Search icon.
-                      const Icon(
-                        Icons.search_rounded,
-                        color: Color(0xFF8B6F61),
-                        size: 22,
-                      ),
-
-                      const SizedBox(width: 12),
-
-                      // Search input.
-                      Expanded(
-                        child: TextField(
-                          decoration: InputDecoration(
-                            hintText: 'Search your favorite treats...',
-                            hintStyle: const TextStyle(
-                              color: Color(0xFFA18B7D),
-                              fontSize: 14,
-                            ),
-                            border: InputBorder.none,
-                            isCollapsed: true,
-                          ),
-                        ),
-                      ),
-
-                      // Filter icon.
-                      const Icon(
-                        Icons.tune_rounded,
-                        color: Color(0xFFB16A45),
-                        size: 20,
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-
-              const SizedBox(height: 24),
+              const SizedBox(height: 12),
 
               // Hero banner: promotional image and offer message.
               Padding(
@@ -306,6 +253,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Row(
                     children: [
                       _ProductCard(
+                        productId: 'D001',
                         imagePath: 'assets/images/Mini Donut-Chocolate.jpg',
                         name: 'Chocolate Donut',
                         price: 35.00,
@@ -314,10 +262,8 @@ class _HomeScreenState extends State<HomeScreen> {
                           _addProductToCart(context, 'D001', 'Chocolate Donut');
                         },
                       ),
-
-                      const SizedBox(width: 16),
-
                       _ProductCard(
+                        productId: 'W001',
                         imagePath: 'assets/images/Waffle-Chocolate.jpg',
                         name: 'Chocolate Waffle',
                         price: 85.00,
@@ -334,6 +280,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       const SizedBox(width: 16),
 
                       _ProductCard(
+                        productId: 'P001',
                         imagePath: 'assets/images/Pancake-Chocolate.jpg',
                         name: 'Chocolate Pancake',
                         price: 65.00,
@@ -360,6 +307,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
 class _ProductCard extends StatelessWidget {
   const _ProductCard({
+    required this.productId,
     required this.imagePath,
     required this.name,
     required this.price,
@@ -367,6 +315,7 @@ class _ProductCard extends StatelessWidget {
     this.onAddToCart,
   });
 
+  final String productId;
   final String imagePath;
   final String name;
   final double price;
@@ -375,117 +324,154 @@ class _ProductCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 160,
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(20),
-        boxShadow: [
-          BoxShadow(
-            color: const Color(0xFF633621).withValues(alpha: 0.08),
-            blurRadius: 12,
-            offset: const Offset(0, 4),
-          ),
-        ],
-      ),
-      child: Column(
-        children: [
-          ClipRRect(
-            borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
-            child: SizedBox(
-              width: double.infinity,
-              height: 115,
-              child: Stack(
-                fit: StackFit.expand,
-                children: [
-                  Image.asset(imagePath, fit: BoxFit.cover),
+    return GestureDetector(
+      onTap: () {
+        final product = products.firstWhere((item) => item.id == productId);
 
-                  Positioned(
-                    top: 8,
-                    right: 8,
-                    child: Container(
-                      width: 32,
-                      height: 32,
-                      decoration: const BoxDecoration(
-                        color: Colors.white,
-                        shape: BoxShape.circle,
-                      ),
-                      child: const Icon(
-                        Icons.favorite_border_rounded,
-                        color: Color(0xFF8B6F61),
-                        size: 19,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ProductDetailsScreen(product: product),
+          ),
+        );
+      },
+
+      child: Container(
+        width: 160,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(20),
+          boxShadow: [
+            BoxShadow(
+              color: const Color(0xFF633621).withValues(alpha: 0.08),
+              blurRadius: 12,
+              offset: const Offset(0, 4),
             ),
-          ),
-
-          Padding(
-            padding: const EdgeInsets.all(12),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  category.toUpperCase(),
-                  style: const TextStyle(
-                    fontSize: 9,
-                    fontWeight: FontWeight.w800,
-                    letterSpacing: 1.2,
-                    color: Color(0xFFB16A45),
-                  ),
-                ),
-
-                const SizedBox(height: 6),
-
-                Text(
-                  name,
-                  style: const TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w700,
-                    color: Color(0xFF633621),
-                  ),
-                ),
-
-                const SizedBox(height: 6),
-
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          ],
+        ),
+        child: Column(
+          children: [
+            ClipRRect(
+              borderRadius: const BorderRadius.vertical(
+                top: Radius.circular(20),
+              ),
+              child: SizedBox(
+                width: double.infinity,
+                height: 115,
+                child: Stack(
+                  fit: StackFit.expand,
                   children: [
-                    Text(
-                      '₱${price.toStringAsFixed(2)}',
-                      style: const TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.w800,
-                        color: Color(0xFF633621),
-                      ),
-                    ),
+                    Image.asset(imagePath, fit: BoxFit.cover),
 
-                    SizedBox(
-                      width: 40,
-                      height: 40,
-                      child: Material(
-                        color: const Color(0xFF633621),
-                        borderRadius: BorderRadius.circular(10),
-                        child: IconButton(
-                          onPressed: onAddToCart,
-                          padding: EdgeInsets.zero,
-                          tooltip: 'Add to cart',
-                          icon: const Icon(
-                            Icons.add_rounded,
-                            color: Colors.white,
-                            size: 22,
-                          ),
+                    Positioned(
+                      top: 8,
+                      right: 8,
+                      child: Container(
+                        width: 32,
+                        height: 32,
+                        decoration: const BoxDecoration(
+                          color: Colors.white,
+                          shape: BoxShape.circle,
+                        ),
+                        child: Consumer<FavoriteProvider>(
+                          builder: (context, favoriteProvider, child) {
+                            final product = products.firstWhere(
+                              (item) => item.id == productId,
+                            );
+
+                            final isFavorite = favoriteProvider.isFavorite(
+                              productId,
+                            );
+
+                            return IconButton(
+                              onPressed: () {
+                                favoriteProvider.toggleFavorite(product);
+                              },
+                              padding: EdgeInsets.zero,
+                              icon: Icon(
+                                isFavorite
+                                    ? Icons.favorite_rounded
+                                    : Icons.favorite_border_rounded,
+                                color: isFavorite
+                                    ? Colors.red
+                                    : const Color(0xFF8B6F61),
+                                size: 19,
+                              ),
+                            );
+                          },
                         ),
                       ),
                     ),
                   ],
                 ),
-              ],
+              ),
             ),
-          ),
-        ],
+
+            Padding(
+              padding: const EdgeInsets.all(12),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    category.toUpperCase(),
+                    style: const TextStyle(
+                      fontSize: 9,
+                      fontWeight: FontWeight.w800,
+                      letterSpacing: 1.2,
+                      color: Color(0xFFB16A45),
+                    ),
+                  ),
+
+                  const SizedBox(height: 6),
+
+                  Text(
+                    name,
+                    style: const TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w700,
+                      color: Color(0xFF633621),
+                    ),
+                  ),
+
+                  const SizedBox(height: 6),
+
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        '₱${price.toStringAsFixed(2)}',
+                        style: const TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.w800,
+                          color: Color(0xFF633621),
+                        ),
+                      ),
+
+                      SizedBox(
+                        width: 40,
+                        height: 40,
+                        child: Material(
+                          color: const Color(0xFF633621),
+                          borderRadius: BorderRadius.circular(10),
+                          child: IconButton(
+                            onPressed: onAddToCart,
+                            padding: EdgeInsets.zero,
+                            tooltip: 'Add to cart',
+                            icon: const Icon(
+                              Icons.add_rounded,
+                              color: Colors.white,
+                              size: 22,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

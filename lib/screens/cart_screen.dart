@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
 import '../data/product_data.dart';
 import '../models/product.dart';
 import '../providers/cart_provider.dart';
@@ -22,6 +23,42 @@ class CartScreen extends StatelessWidget {
         backgroundColor: const Color(0xFFFFF9F3),
         foregroundColor: const Color(0xFF633621),
         elevation: 0,
+
+        actions: [
+          IconButton(
+            tooltip: 'Remove All',
+            icon: const Icon(
+              Icons.delete_sweep_rounded,
+              color: Color(0xFFB16A45),
+            ),
+            onPressed: () async {
+              final confirm = await showDialog<bool>(
+                context: context,
+                builder: (context) => AlertDialog(
+                  title: const Text('Remove All Products?'),
+                  content: const Text(
+                    'Are you sure you want to remove all products from your cart?',
+                  ),
+                  actions: [
+                    TextButton(
+                      onPressed: () => Navigator.pop(context, false),
+                      child: const Text('Cancel'),
+                    ),
+                    TextButton(
+                      onPressed: () => Navigator.pop(context, true),
+                      child: const Text('Remove All'),
+                    ),
+                  ],
+                ),
+              );
+
+              if (confirm == true && context.mounted) {
+                context.read<CartProvider>().clearCart();
+              }
+            },
+          ),
+        ],
+        
       ),
       body: Consumer<CartProvider>(
         builder: (context, cart, child) {
@@ -51,27 +88,65 @@ class CartScreen extends StatelessWidget {
                 padding: const EdgeInsets.fromLTRB(24, 16, 24, 24),
                 decoration: const BoxDecoration(
                   color: Colors.white,
-                  borderRadius: BorderRadius.vertical(
-                    top: Radius.circular(24),
-                  ),
+                  borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
                 ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    const Text(
-                      'Total',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w800,
-                        color: Color(0xFF633621),
-                      ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text(
+                          'Total',
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w800,
+                            color: Color(0xFF633621),
+                          ),
+                        ),
+                        Text(
+                          '₱${cart.totalAmount.toStringAsFixed(2)}',
+                          style: const TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.w900,
+                            color: Color(0xFF633621),
+                          ),
+                        ),
+                      ],
                     ),
-                    Text(
-                      '₱${cart.totalAmount.toStringAsFixed(2)}',
-                      style: const TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w900,
-                        color: Color(0xFF633621),
+                    const SizedBox(height: 20),
+                    SizedBox(
+                      height: 52,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          cart.clearCart();
+
+                          ScaffoldMessenger.of(context)
+                            ..hideCurrentSnackBar()
+                            ..showSnackBar(
+                              const SnackBar(
+                                content: Text(
+                                  'Your order has been checked out successfully!',
+                                ),
+                                duration: Duration(seconds: 2),
+                              ),
+                            );
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xFF633621),
+                          foregroundColor: Colors.white,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          elevation: 0,
+                        ),
+                        child: const Text(
+                          'Checkout',
+                          style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.w800,
+                          ),
+                        ),
                       ),
                     ),
                   ],
@@ -94,11 +169,7 @@ class _EmptyCart extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(
-            Icons.shopping_bag_outlined,
-            size: 65,
-            color: Color(0xFFB16A45),
-          ),
+          Icon(Icons.shopping_bag_outlined, size: 65, color: Color(0xFFB16A45)),
           SizedBox(height: 16),
           Text(
             'Your cart is empty',
@@ -111,10 +182,7 @@ class _EmptyCart extends StatelessWidget {
           SizedBox(height: 6),
           Text(
             'Add some sweet treats to get started!',
-            style: TextStyle(
-              fontSize: 12,
-              color: Color(0xFF8B6F61),
-            ),
+            style: TextStyle(fontSize: 12, color: Color(0xFF8B6F61)),
           ),
         ],
       ),

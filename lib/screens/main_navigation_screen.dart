@@ -6,6 +6,10 @@ import 'favorite_screen.dart';
 import 'profile_screen.dart';
 import 'cart_screen.dart';
 
+import 'package:provider/provider.dart';
+
+import '../providers/cart_provider.dart';
+
 class MainNavigationScreen extends StatefulWidget {
   const MainNavigationScreen({super.key});
 
@@ -28,7 +32,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
     const FavoritesScreen(),
     const ProfileScreen(),
   ];
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -74,20 +78,60 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
                       color: Colors.white,
                       shape: BoxShape.circle,
                     ),
-                    child: IconButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const CartScreen(),
+                    child: Stack(
+                      clipBehavior: Clip.none,
+                      children: [
+                        IconButton(
+                          onPressed: () {
+                            context.read<CartProvider>().markCartAsViewed();
+
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const CartScreen(),
+                              ),
+                            );
+                          },
+                          icon: const Icon(
+                            Icons.shopping_bag_outlined,
+                            size: 22,
+                            color: Color(0xFF633621),
                           ),
-                        );
-                      },
-                      icon: const Icon(
-                        Icons.shopping_bag_outlined,
-                        size: 22,
-                        color: Color(0xFF633621),
-                      ),
+                        ),
+
+                        Consumer<CartProvider>(
+                          builder: (context, cart, child) {
+                            if (cart.newCartItems == 0) {
+                              return const SizedBox.shrink();
+                            }
+
+                            return Positioned(
+                              right: 2,
+                              top: 2,
+                              child: Container(
+                                padding: const EdgeInsets.all(5),
+                                decoration: const BoxDecoration(
+                                  color: Colors.red,
+                                  shape: BoxShape.circle,
+                                ),
+                                constraints: const BoxConstraints(
+                                  minWidth: 18,
+                                  minHeight: 18,
+                                ),
+                                child: Text(
+                                  '${cart.newCartItems}',
+                                  textAlign: TextAlign.center,
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 10,
+                                    fontWeight: FontWeight.w800,
+                                  ),
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                      ],
                     ),
                   ),
                 ],
