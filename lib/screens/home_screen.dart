@@ -41,13 +41,28 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.sizeOf(context).width
+        .clamp(0.0, 480.0)
+        .toDouble();
+    final textScale = MediaQuery.textScalerOf(context).scale(14) / 14;
+    final bannerWidth = (screenWidth - 48).clamp(0.0, 432.0).toDouble();
+    final compact = screenWidth < 360;
+    final bannerHeight =
+        (bannerWidth * 0.42 + (textScale - 1) * 70)
+            .clamp(162.0, 300.0)
+            .toDouble();
+    final buttonHeight = (34 * textScale).clamp(34.0, 60.0).toDouble();
+
     return Scaffold(
       backgroundColor: AppColors.background,
       body: SafeArea(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.only(bottom: 24),
-          child: Column(
-            children: [
+        child: Center(
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 480),
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.only(bottom: 24),
+              child: Column(
+                children: [
               // Welcome card: greeting and brand message.
               Padding(
                 padding: const EdgeInsets.fromLTRB(24, 10, 24, 12),
@@ -125,7 +140,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   borderRadius: BorderRadius.circular(24),
                   child: SizedBox(
                     width: double.infinity,
-                    height: 162,
+                      height: bannerHeight,
                     child: Stack(
                       fit: StackFit.expand,
                       children: [
@@ -150,7 +165,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.all(20),
+                          padding: EdgeInsets.all(compact ? 16 : 20),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -168,7 +183,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               Text(
                                 'Sweet Deals for You!',
                                 style: TextStyle(
-                                  fontSize: 20,
+                                  fontSize: compact ? 18 : 20,
                                   fontWeight: FontWeight.w900,
                                   color: AppColors.surface,
                                 ),
@@ -183,7 +198,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                               const SizedBox(height: 10),
                               SizedBox(
-                                height: 34,
+                                height: buttonHeight,
                                 child: ElevatedButton(
                                   onPressed: widget.onNavigateToMenu,
                                   style: ElevatedButton.styleFrom(
@@ -206,9 +221,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                   ),
                                 ),
                               ),
-                            ],
-                          ),
-                        ),
+                                ],
+                              ),
+                            ),
                       ],
                     ),
                   ),
@@ -298,7 +313,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
               ),
-            ],
+                ],
+              ),
+            ),
           ),
         ),
       ),
@@ -415,6 +432,8 @@ class _ProductCard extends StatelessWidget {
                 children: [
                   Text(
                     category.toUpperCase(),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
                     style: const TextStyle(
                       fontSize: 9,
                       fontWeight: FontWeight.w800,
@@ -427,6 +446,8 @@ class _ProductCard extends StatelessWidget {
 
                   Text(
                     name,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
                     style: const TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w700,
@@ -437,17 +458,20 @@ class _ProductCard extends StatelessWidget {
                   const SizedBox(height: 6),
 
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        '₱${price.toStringAsFixed(2)}',
-                        style: const TextStyle(
-                          fontSize: 15,
-                          fontWeight: FontWeight.w800,
-                          color: AppColors.primary,
+                      Expanded(
+                        child: Text(
+                          '₱${price.toStringAsFixed(2)}',
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.w800,
+                            color: AppColors.primary,
+                          ),
                         ),
                       ),
-
+                      const SizedBox(width: 8),
                       SizedBox(
                         width: 40,
                         height: 40,

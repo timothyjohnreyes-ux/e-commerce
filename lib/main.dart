@@ -29,6 +29,31 @@ class K3MiniDelightApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'K3 Mini Delight',
+      builder: (context, child) {
+        return ColoredBox(
+          color: AppColors.background,
+          child: LayoutBuilder(
+            builder: (context, constraints) {
+              final appWidth = constraints.maxWidth
+                  .clamp(0.0, 480.0)
+                  .toDouble();
+              final appHeight = constraints.maxHeight;
+              final mediaQuery = MediaQuery.of(context);
+
+              return Center(
+                child: SizedBox(
+                  width: appWidth,
+                  height: appHeight,
+                  child: MediaQuery(
+                    data: mediaQuery.copyWith(size: Size(appWidth, appHeight)),
+                    child: child ?? const SizedBox.shrink(),
+                  ),
+                ),
+              );
+            },
+          ),
+        );
+      },
 
       theme: ThemeData(
         useMaterial3: true,
